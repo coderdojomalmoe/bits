@@ -1,49 +1,33 @@
-let initialState = "00000001";
+let initialState = "00100001";
 let byte = [];
-let decimalP;
-
-function mousePressed() {
-  for (let i = 0; i < byte.length; i++) {
-    byte[i].contains(mouseX, mouseY);
-  }
-}
+let size = initialState.length;
+let div;
 
 function setup() {
-  const size = initialState.length;
-  createCanvas((size/2)*100, 100);
-  decimalP = createDiv();
+    createCanvas((size / 2) * 100, 100);
+    div = createDiv();
 
-  let w = width / size;
-  for (let i = 0; i < size; i++) {
-    byte[i] = new Bit(w / 2 + i * w, 50, w - 4);
-    byte[i].setState(initialState.charAt(i));
-  }
+    let w = width / size;
+    for (let i = 0; i < size; i++) {
+        let state = initialState.charAt(i) == '1';
+        byte[i] = new Bit(w / 2 + i * w, 50, w - 4, state);
+    }
 }
 
 function draw() {
-  background(220);
+    for (let i = 0; i < byte.length; i++) {
+        byte[i].draw();
+    }
 
-  for (let i = 0; i < byte.length; i++) {
-    byte[i].draw();
-  }
-
-  decimalP.html(binaryToDecimal(byteToBinary(byte)));
-}
-
-function byteToBinary(byte)
-{
-  let binary = '';
-  for (let i = 0; i < byte.length; i++) {
-    binary += byte[i].state ? '1' : '0';
-  }
-  return binary;
+    div.html(binaryToDecimal(initialState));
 }
 
 function binaryToDecimal(val) {
-  let sum = 0;
-  for (let i = 0; i < val.length; i++) {
-    let bit = val.charAt(val.length - i - 1);
-    sum += parseInt(bit) * pow(2, i);
-  }
-  return sum;
+    let decimal = 0;
+
+    for (let i = 0; i < val.length; i++) {
+        let bit = val.charAt(val.length - i - 1);
+        decimal += parseInt(bit) * pow(2, i);
+    }
+    return decimal;
 }

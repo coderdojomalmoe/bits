@@ -1,33 +1,17 @@
 class Bit {
-  constructor(x, y, diameter) {
-    this.x = x;
-    this.y = y;
-    this.diameter = diameter;
-    this.state = false;
-  }
-  
-  draw() {
-    stroke(255);
-    if(this.state)
-      fill(0,155,0);
-    else
-      fill(255,0,0);
-    ellipse(this.x, this.y, this.diameter);
-  }
-  
-  setState(state) {
-    this.state = Boolean(parseInt(state));
-  }
-  
-  contains(x,y) {
-    let d = dist(x,y,this.x, this.y);
-    if (d < this.diameter/2)
-    {
-      this.toggle();
+    constructor(x, y, radius, state) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.state = state;
     }
-  }
-  
-  toggle() {
-    this.state = !this.state;
-  }
+
+    draw() {
+        if (this.state) {
+            fill(0, 150, 0);
+        } else {
+            fill(255, 0, 0);
+        }
+        ellipse(this.x, this.y, this.radius);
+    }
 }
